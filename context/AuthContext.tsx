@@ -24,15 +24,15 @@ export function AuthProvider({ children }) {
     setUser(null);
   }
 
+  async function load() {
+    const session = await loadUserSession();
+    if (session?.user) {
+      setUser(session.user);
+    }
+    setAuthChecked(true);
+  }
   // AUTO LOGIN on app start
   useEffect(() => {
-    async function load() {
-      const session = await loadUserSession();
-      if (session?.user) {
-        setUser(session.user);
-      }
-      setAuthChecked(true);
-    }
     load();
   }, []);
 
