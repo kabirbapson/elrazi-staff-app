@@ -18,7 +18,7 @@ import {
 } from 'react-native';
 import * as Yup from 'yup';
 
-export default function AuthLogin() {
+export default function Login() {
     const router = useRouter();
     const [showPassword, setShowPassword] = useState(false);
     const [loading, setLoading] = useState(false);
@@ -31,7 +31,6 @@ export default function AuthLogin() {
         try {
             const response = await loginUser(values);
             if (response?.data) {
-                console.log(response.data)
                 const { user, accessToken, refreshToken } = response.data;
 
                 await SecureStore.setItemAsync(
@@ -39,8 +38,10 @@ export default function AuthLogin() {
                     JSON.stringify({ user, accessToken, refreshToken })
                 );
 
-                router.replace("/");
+                // Redirect to tabs layout
+                router.replace("/(tabs)");
             }
+
         } catch (err) {
             const data = err?.response?.data;
 
@@ -52,11 +53,16 @@ export default function AuthLogin() {
                 "Invalid Credentials";
 
             setFieldError("submit", message);
+            console.log(err)
         } finally {
             setLoading(false);
             setSubmitting(false);
         }
     };
+
+
+
+
 
     return (
         <KeyboardAvoidingView
