@@ -1,7 +1,7 @@
+import { useAuth } from '@/hooks/useAuth';
 import { loginUser } from '@/utils/api/auth';
 import { MaterialIcons } from '@expo/vector-icons';
 import { Stack, useRouter } from 'expo-router';
-import * as SecureStore from 'expo-secure-store';
 import { Formik } from 'formik';
 import React, { useState } from 'react';
 import {
@@ -22,7 +22,7 @@ export default function Login() {
     const router = useRouter();
     const [showPassword, setShowPassword] = useState(false);
     const [loading, setLoading] = useState(false);
-
+    const { login } = useAuth();
     const togglePassword = () => setShowPassword((prev) => !prev);
 
     const handleLogin = async (values, { setSubmitting, setFieldError }) => {
@@ -33,13 +33,9 @@ export default function Login() {
             if (response?.data) {
                 const { user, accessToken, refreshToken } = response.data;
 
-                await SecureStore.setItemAsync(
-                    "session",
-                    JSON.stringify({ user, accessToken, refreshToken })
-                );
-
-                // Redirect to tabs layout
+                await login(values.email, values.password);
                 router.replace("/(tabs)");
+
             }
 
         } catch (err) {

@@ -1,6 +1,6 @@
 import { useAuth } from "@/hooks/useAuth";
 import { useRouter } from "expo-router";
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
 import {
   ActivityIndicator,
   Dimensions,
@@ -19,7 +19,13 @@ export default function Dashboard() {
   const router = useRouter();
   const { user, authChecked, logout } = useAuth();
 
-  if (!authChecked) {
+  useEffect(() => {
+    if (authChecked && !user) {
+      router.replace("/(auth)/login");
+    }
+  }, [authChecked, user]);
+
+  if (!authChecked || (!user && authChecked)) {
     return (
       <View style={styles.center}>
         <ActivityIndicator size="large" color="#1976d2" />
@@ -27,10 +33,6 @@ export default function Dashboard() {
     );
   }
 
-  if (!user) {
-    router.replace("/(auth)/login");
-    return null;
-  }
 
   const admissions = user?.admissions || [];
 
@@ -164,8 +166,6 @@ export default function Dashboard() {
               bezier
               style={{ marginTop: 8, borderRadius: 8 }}
             />
-
-
 
             <Text style={styles.sectionTitle}>Recent Applications</Text>
           </>
