@@ -13,7 +13,7 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-export default function Index() {
+export default function Dashboard() {
   const router = useRouter();
   const [session, setSession] = useState<any>(null);
   const [loading, setLoading] = useState(true);
@@ -90,7 +90,7 @@ export default function Index() {
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
-    backgroundColor: "#f5f7fb",
+    // backgroundColor: "#f5f7fb",
     paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0, // fix for Android
   },
   center: { flex: 1, justifyContent: "center", alignItems: "center" },
