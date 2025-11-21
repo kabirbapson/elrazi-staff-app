@@ -33,7 +33,6 @@ export default function Dashboard() {
     );
   }
 
-
   const admissions = user?.admissions || [];
 
   const { total, approved, pending, rejected, paidPct, emailVerifiedPct, internationalCount } =

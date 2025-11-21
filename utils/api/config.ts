@@ -6,7 +6,7 @@ import Toast from "react-native-toast-message";
 
 export const http = axios.create({
   baseURL: API_BASE_URL,
-  timeout: 10000,
+  timeout: 30000,
 });
 
 // ---- Token Refresh Handling ----

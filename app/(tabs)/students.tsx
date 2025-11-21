@@ -1,3 +1,5 @@
+import { useApp } from "@/hooks/useApp";
+import { useAuth } from "@/hooks/useAuth";
 import { Picker } from "@react-native-picker/picker";
 import { useRef, useState } from "react";
 import {
@@ -41,15 +43,82 @@ export default function Students() {
 
     const filtered = studentsList.filter((student) => {
         const matchesSearch = student.fullName.toLowerCase().includes(search.toLowerCase()) ||
-                              student.regNo.toLowerCase().includes(search.toLowerCase());
+            student.regNo.toLowerCase().includes(search.toLowerCase());
         const matchesCourse = courseFilter === "All" || student.course === courseFilter;
         const matchesYear = yearFilter === "All" || student.level === yearFilter;
         return matchesSearch && matchesCourse && matchesYear;
     });
 
+    const { user, authChecked } = useAuth();
+    const { students } = useApp();
+    console.log({ user })
+    if (students.length) console.log('in the student', students[0]?.user?.email);
+
+
+    // useEffect(() => {
+    //     console.log('Auth user:', user);
+    //     if (students.length > 0) {
+    //         console.log('First student email:', students[0]?.user?.email);
+    //     }
+    // }, [students, user]);
+
+    // const [student, setStudent] = useState(null);
+
+    // const { user, authChecked } = useAuth();
+    // const [loading, setLoading] = useState(false);
+
+    // const session = async () => {
+    //     const session = await getAuthHeader();
+    //     console.log('my getAuthHeader from from students', { session })
+    // };
+
+    // const sessionToken = async () => {
+    //     const session = await loadUserSession();
+    //     console.log('my loadusersession from students', session.token)
+    // };
+    // const fetchStudents = async () => {
+    //     // if (!user) {
+    //     //     return;
+    //     // }
+
+    //     setLoading(true);
+    //     try {
+    //         console.log("userssss", user)
+    //         const session = await getAuthHeader();
+    //         console.log('session from fetchtusdents students', session )
+    //         const res = await getStudents(); // <-- await the promise
+    //         console.log('staff students res.data', res.data);
+    //         setStudent(res.data || []);
+
+    //     } catch (err) {
+    //         console.log("Error fetching students:", err);
+    //     } finally {
+    //         setLoading(false);
+    //     }
+    // };
+    // // only call fetch when auth is ready
+    // useEffect(() => {
+    //     console.log('effect')
+    //     session()
+    //     if (!authChecked || !user) return;
+    //     fetchStudents();
+    // }, [authChecked, user]);
+
+
+    // async function loadSession() {
+    //     const session = await loadUserSession();
+    //     console.log('my sessin from loadedsession in studnts', { session });
+    // }
+
+    // useEffect(() => {
+    //     loadSession();
+    // }, []);
+
+
     return (
         <View style={styles.container}>
             <Text style={styles.title}>Student Directory</Text>
+            <Text>{students[0]?.user?.email || "Loading..."}</Text>
 
             <TextInput
                 placeholder="Search by name or registration number..."

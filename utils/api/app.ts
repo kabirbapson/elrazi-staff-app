@@ -6,7 +6,7 @@ export const getPendingStudent = async () =>
   http.get("/api/students/admissions/management/", await getAuthHeader());
 
 export const getStudents = async () =>
-  http.get("/api/students/management/", await getAuthHeader());
+  http.get("/api/students/management/?limit=20", await getAuthHeader());
 
 export const getCourses = async () =>
   http.get("/api/faculty-courses/", await getAuthHeader());

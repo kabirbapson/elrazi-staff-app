@@ -9,6 +9,6 @@ export const loadUserSession = async () => {
 
 export const getAuthHeader = async () => {
   const session = await loadUserSession();
-  if (!session?.accessToken) return {};
-  return { headers: { Authorization: `Token ${session.accessToken}` } };
+  if (!session.token) return;
+  return { headers: { Authorization: `Token ${session.token}` } };
 };

@@ -12,7 +12,6 @@ export default function Index() {
       </View>
     );
   }
-  console.log('first', user)
 
   // If no user → go to login
   if (!user) {

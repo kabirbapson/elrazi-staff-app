@@ -8,12 +8,10 @@ export const AuthContext = createContext(null);
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
   const [authChecked, setAuthChecked] = useState(false);
-
   // LOGIN
   async function login(email, password) {
     const payload = { email: email.toLowerCase(), password };
     const res = await loginUser(payload);
-
     await SecureStore.setItemAsync("session", JSON.stringify(res.data));
     setUser(res.data.user);
   }
