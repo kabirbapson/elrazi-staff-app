@@ -55,12 +55,6 @@ export default function Students() {
     if (students.length) console.log('in the student', students[0]?.user?.email);
 
 
-    // useEffect(() => {
-    //     console.log('Auth user:', user);
-    //     if (students.length > 0) {
-    //         console.log('First student email:', students[0]?.user?.email);
-    //     }
-    // }, [students, user]);
 
     // const [student, setStudent] = useState(null);
 
